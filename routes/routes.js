@@ -42,6 +42,15 @@ const {
 } = require("../controllers/reporterRequestController");
 
 const {
+  createDreamerApplication,
+  getAllDreamerApplications,
+  getDreamerApplicationById,
+  approveDreamerApplication,
+  rejectDreamerApplication,
+  deleteDreamerApplication,
+} = require("../controllers/dreamerController");
+
+const {
   createTask,
   getAllTasks,
   updateTaskStatus,
@@ -444,5 +453,54 @@ router.delete("/admin/messages/:id", verifyToken, verifyAdmin, async (req, res) 
       .json({ message: `Failed to delete message: ${err.message}` });
   }
 });
+
+
+// ----------------------------------
+// DREAMER APPLICATION ROUTES
+// ----------------------------------
+
+router.post(
+  "/dreamer-applications",
+  createDreamerApplication
+);
+
+router.get(
+  "/admin/dreamer-applications",
+  verifyToken,
+  verifyAdmin,
+  getAllDreamerApplications
+);
+
+router.get(
+  "/admin/dreamer-applications/:id",
+  verifyToken,
+  verifyAdmin,
+  getDreamerApplicationById
+);
+
+router.patch(
+  "/admin/dreamer-applications/:id/approve",
+  verifyToken,
+  verifyAdmin,
+  approveDreamerApplication
+);
+
+router.patch(
+  "/admin/dreamer-applications/:id/reject",
+  verifyToken,
+  verifyAdmin,
+  rejectDreamerApplication
+);
+
+router.delete(
+  "/admin/dreamer-applications/:id",
+  verifyToken,
+  verifyAdmin,
+  deleteDreamerApplication
+);
+
+// ----------------------------------
+// EXPORT ROUTER
+// ----------------------------------
 
 module.exports = router;
